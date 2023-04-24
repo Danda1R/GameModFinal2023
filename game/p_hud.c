@@ -278,8 +278,8 @@ void Cmd_Score_f (edict_t *ent)
 	ent->client->showinventory = false;
 	ent->client->showhelp = false;
 
-	if (!deathmatch->value && !coop->value)
-		return;
+	//if (!deathmatch->value && !coop->value)
+	//	return;
 
 	if (ent->client->showscores)
 	{

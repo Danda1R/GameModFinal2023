@@ -181,6 +181,16 @@
       <AdditionalDependencies>winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <ModuleDefinitionFile>.\game.def</ModuleDefinitionFile>
     </Link>
+    <PostBuildEvent>
+      <Command>set modTarget=C:\Program Files (x86)\Steam\steamapps\common\Quake 2\HolyBlade
+set buildDir=C:\Users\dandar\Downloads\Git\GameModFinal2023\game\release\gamex86.dll
+
+copy "%buildDir%" "%modTarget%"
+
+set quake=\\Mac\Home\Desktop\
+cd "%quake%"
+"%quake%\quake2 - Shortcut.lnk"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release Alpha|Win32'">
     <ClCompile>
@@ -269,6 +279,11 @@
       <AdditionalDependencies>winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <ModuleDefinitionFile>.\game.def</ModuleDefinitionFile>
     </Link>
+    <PostBuildEvent>
+      <Command>cp C:\Users\dandar\Downloads\Git\GameModFinal2023\debug\gamex86.dll C:\Program Files (x86)\Steam\steamapps\common\Quake 2
+cd C:\Program Files (x86)\Steam\steamapps\common\Quake 2
+C:\Program Files (x86)\Steam\steamapps\common\Quake 2\Quake2.exe</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="g_ai.c">
