@@ -103,7 +103,9 @@ void Killed (edict_t *targ, edict_t *inflictor, edict_t *attacker, int damage, v
 		{
 			level.killed_monsters++;
 			attacker->client->resp.score++;
-			Cmd_Score_f(inflictor);
+			if (!(attacker->client->showscores)) {
+				Cmd_Score_f(attacker);
+			}
 			// medics won't heal monsters that they kill themselves
 			if (strcmp(attacker->classname, "monster_medic") == 0)
 				targ->owner = attacker;

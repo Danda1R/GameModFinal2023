@@ -1,22 +1,3 @@
-/*
-Copyright (C) 1997-2001 Id Software, Inc.
-
-This program is free software; you can redistribute it and/or
-modify it under the terms of the GNU General Public License
-as published by the Free Software Foundation; either version 2
-of the License, or (at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
-
-See the GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program; if not, write to the Free Software
-Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
-
-*/
 #include "g_local.h"
 #include "m_player.h"
 
@@ -502,6 +483,14 @@ void player_die (edict_t *self, edict_t *inflictor, edict_t *attacker, int damag
 {
 	int		n;
 
+        if (self->client->chasetoggle)
+        {
+                ChasecamRemove (self, OPTION_OFF);
+                self->client->pers.chasetoggle = 1; 
+        }
+        else
+                self->client->pers.chasetoggle = 0; 
+
 	VectorClear (self->avelocity);
 
 	self->takedamage = DAMAGE_YES;
@@ -627,6 +616,8 @@ void InitClientPersistant (gclient_t *client)
 	client->pers.max_slugs		= 50;
 
 	client->pers.connected = true;
+
+    client->pers.chasetoggle = 1;
 }
 
 
@@ -657,6 +648,7 @@ void SaveClientData (void)
 		ent = &g_edicts[1+i];
 		if (!ent->inuse)
 			continue;
+        game.clients[i].pers.chasetoggle = ent->client->chasetoggle;
 		game.clients[i].pers.health = ent->health;
 		game.clients[i].pers.max_health = ent->max_health;
 		game.clients[i].pers.savedFlags = (ent->flags & (FL_GODMODE|FL_NOTARGET|FL_POWER_ARMOR));
@@ -979,6 +971,16 @@ void CopyToBodyQue (edict_t *ent)
 
 void respawn (edict_t *self)
 {
+        if (self->crosshair)
+                G_FreeEdict(self->crosshair);
+        self->crosshair = NULL;
+        if (self->client->oldplayer)
+                G_FreeEdict (self->client->oldplayer);
+        self->client->oldplayer = NULL;
+        if (self->client->chasecam)
+                G_FreeEdict (self->client->chasecam);
+        self->client->chasecam = NULL;
+
 	if (deathmatch->value || coop->value)
 	{
 		// spectator's don't leave bodies
@@ -1041,6 +1043,14 @@ void spectator_respawn (edict_t *ent)
 			gi.unicast(ent, true);
 			return;
 		}
+		if (ent->client->chasetoggle)
+		{
+			ChasecamRemove (ent, OPTION_OFF);
+			ent->client->pers.chasetoggle = 1;
+		}
+		else
+			ent->client->pers.chasetoggle = 0;
+
 	} else {
 		// he was a spectator and wants to join the game
 		// he must have the right password
@@ -1056,8 +1066,8 @@ void spectator_respawn (edict_t *ent)
 		}
 	}
 
-	// clear score on respawn
-	ent->client->pers.score = ent->client->resp.score = 0;
+	// clear client on respawn
+	ent->client->resp.score = ent->client->pers.score = 0;
 
 	ent->svflags &= ~SVF_NOCLIENT;
 	PutClientInServer (ent);
@@ -1102,6 +1112,8 @@ void PutClientInServer (edict_t *ent)
 	vec3_t	spawn_origin, spawn_angles;
 	gclient_t	*client;
 	int		i;
+	int     chasetoggle;
+	char    userinfo[MAX_INFO_STRING];
 	client_persistant_t	saved;
 	client_respawn_t	resp;
 
@@ -1112,12 +1124,11 @@ void PutClientInServer (edict_t *ent)
 
 	index = ent-g_edicts-1;
 	client = ent->client;
+	chasetoggle = client->pers.chasetoggle;
 
 	// deathmatch wipes most client data every spawn
 	if (deathmatch->value)
 	{
-		char		userinfo[MAX_INFO_STRING];
-
 		resp = client->resp;
 		memcpy (userinfo, client->pers.userinfo, sizeof(userinfo));
 		InitClientPersistant (client);
@@ -1126,7 +1137,6 @@ void PutClientInServer (edict_t *ent)
 	else if (coop->value)
 	{
 //		int			n;
-		char		userinfo[MAX_INFO_STRING];
 
 		resp = client->resp;
 		memcpy (userinfo, client->pers.userinfo, sizeof(userinfo));
@@ -1146,6 +1156,8 @@ void PutClientInServer (edict_t *ent)
 	else
 	{
 		memset (&resp, 0, sizeof(resp));
+		memcpy (userinfo, client->pers.userinfo, sizeof(userinfo));
+		ClientUserinfoChanged (ent, userinfo);
 	}
 
 	// clear everything but the persistant data
@@ -1155,6 +1167,7 @@ void PutClientInServer (edict_t *ent)
 	if (client->pers.health <= 0)
 		InitClientPersistant(client);
 	client->resp = resp;
+	client->pers.chasetoggle = chasetoggle;
 
 	// copy some data from the client to the entity
 	FetchClientEntData (ent);
@@ -1179,6 +1192,8 @@ void PutClientInServer (edict_t *ent)
 	ent->watertype = 0;
 	ent->flags &= ~FL_NO_KNOCKBACK;
 	ent->svflags &= ~SVF_DEADMONSTER;
+	ent->svflags &= ~SVF_NOCLIENT;
+	ent->client->ps.pmove.pm_flags &= ~PMF_NO_PREDICTION;
 
 	VectorCopy (mins, ent->mins);
 	VectorCopy (maxs, ent->maxs);
@@ -1221,7 +1236,9 @@ void PutClientInServer (edict_t *ent)
 
 	// set the delta angle
 	for (i=0 ; i<3 ; i++)
+	{
 		client->ps.pmove.delta_angles[i] = ANGLE2SHORT(spawn_angles[i] - client->resp.cmd_angles[i]);
+	}
 
 	ent->s.angles[PITCH] = 0;
 	ent->s.angles[YAW] = spawn_angles[YAW];
@@ -1249,6 +1266,10 @@ void PutClientInServer (edict_t *ent)
 	}
 
 	gi.linkentity (ent);
+	
+	ent->client->chasetoggle = 0;
+	if (ent->client->pers.chasetoggle && !ent->client->chasetoggle)
+		ent->client->delayedstart = 5;
 
 	// force the current weapon up
 	client->newweapon = client->pers.weapon;
@@ -1272,13 +1293,21 @@ void ClientBeginDeathmatch (edict_t *ent)
 	// locate ent at a spawn point
 	PutClientInServer (ent);
 
-	// send effect
-	gi.WriteByte (svc_muzzleflash);
-	gi.WriteShort (ent-g_edicts);
-	gi.WriteByte (MZ_LOGIN);
-	gi.multicast (ent->s.origin, MULTICAST_PVS);
+	if (level.intermissiontime)
+	{
+		MoveClientToIntermission (ent);
+	}
+	else
+	{
+		// send effect
+		gi.WriteByte (svc_muzzleflash);
+		gi.WriteShort (ent-g_edicts);
+		gi.WriteByte (MZ_LOGIN);
+		gi.multicast (ent->s.origin, MULTICAST_PVS);
+	}
 
 	gi.bprintf (PRINT_HIGH, "%s entered the game\n", ent->client->pers.netname);
+	gi.centerprintf(ent, "SPINE DESIGN\nThird Person Perspective\nType 'thirdperson' at console to toggle.");
 
 	// make sure all view stuff is valid
 	ClientEndServerFrame (ent);
@@ -1298,7 +1327,6 @@ void ClientBegin (edict_t *ent)
 	int		i;
 
 	ent->client = game.clients + (ent - g_edicts - 1);
-
 	if (deathmatch->value)
 	{
 		ClientBeginDeathmatch (ent);
@@ -1489,6 +1517,7 @@ qboolean ClientConnect (edict_t *ent, char *userinfo)
 	if (game.maxclients > 1)
 		gi.dprintf ("%s connected\n", ent->client->pers.netname);
 
+	ent->svflags = 0; // make sure we start with known default
 	ent->client->pers.connected = true;
 	return true;
 }
@@ -1507,6 +1536,9 @@ void ClientDisconnect (edict_t *ent)
 
 	if (!ent->client)
 		return;
+	
+	if (ent->client->chasetoggle)
+		ChasecamRemove (ent, OPTION_OFF);
 
 	gi.bprintf (PRINT_HIGH, "%s disconnected\n", ent->client->pers.netname);
 
@@ -1579,12 +1611,39 @@ void ClientThink (edict_t *ent, usercmd_t *ucmd)
 
 	if (level.intermissiontime)
 	{
+		if (client->chasetoggle)
+			ChasecamRemove (ent, OPTION_OFF);
 		client->ps.pmove.pm_type = PM_FREEZE;
 		// can exit intermission after five seconds
 		if (level.time > level.intermissiontime + 5.0 
 			&& (ucmd->buttons & BUTTON_ANY) )
 			level.exitintermission = true;
 		return;
+	}
+	if (client->chasetoggle)
+		ent->client->ps.pmove.pm_flags |= PMF_NO_PREDICTION;
+	else
+		ent->client->ps.pmove.pm_flags &= ~PMF_NO_PREDICTION;
+	if ((ucmd->buttons & BUTTON_USE) && (!deathmatch->value))
+	{
+		client->use = 1;
+		if ((ucmd->forwardmove < 0) && (client->zoom < 60))
+			client->zoom++;
+		else if ((ucmd->forwardmove > 0) && (client->zoom > -40))
+			client->zoom--;
+		ucmd->forwardmove = 0;
+		ucmd->sidemove = 0;
+	}
+	else if (client->use)
+	{
+		if (client->oldplayer)
+		{
+			for (i=0 ; i<3 ; i++)
+			{
+				ent->client->ps.pmove.delta_angles[i] = ANGLE2SHORT(ent->client->oldplayer->s.angles[i] - ent->client->resp.cmd_angles[i]);
+			}
+		}
+		client->use = 0;
 	}
 
 	pm_passent = ent;
@@ -1761,6 +1820,10 @@ void ClientBeginServerFrame (edict_t *ent)
 		return;
 
 	client = ent->client;
+	if (client->delayedstart > 0)
+		client->delayedstart--;
+	if (client->delayedstart == 1)
+		ChasecamStart (ent);
 
 	if (deathmatch->value &&
 		client->pers.spectator != client->resp.spectator &&

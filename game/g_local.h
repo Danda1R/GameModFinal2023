@@ -8,7 +8,7 @@ of the License, or (at your option) any later version.
 
 This program is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
 See the GNU General Public License for more details.
 
@@ -26,6 +26,8 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 // because we define the full size ones in this file
 #define	GAME_INCLUDE
 #include "game.h"
+
+#define GAMEVERSION     "thirdperson"
 
 // the "gameversion" client command will print this plus compile date
 #define	GAMEVERSION	"baseq2"
@@ -88,9 +90,9 @@ typedef enum
 	DAMAGE_AIM			// auto targeting recognizes this
 } damage_t;
 
-typedef enum 
+typedef enum
 {
-	WEAPON_READY, 
+	WEAPON_READY,
 	WEAPON_ACTIVATING,
 	WEAPON_DROPPING,
 	WEAPON_FIRING
@@ -185,17 +187,17 @@ typedef enum
 // edict->movetype values
 typedef enum
 {
-MOVETYPE_NONE,			// never moves
-MOVETYPE_NOCLIP,		// origin and angles change with no interaction
-MOVETYPE_PUSH,			// no clip to world, push on box contact
-MOVETYPE_STOP,			// no clip to world, stops on box contact
+	MOVETYPE_NONE,			// never moves
+	MOVETYPE_NOCLIP,		// origin and angles change with no interaction
+	MOVETYPE_PUSH,			// no clip to world, push on box contact
+	MOVETYPE_STOP,			// no clip to world, stops on box contact
 
-MOVETYPE_WALK,			// gravity
-MOVETYPE_STEP,			// gravity, special edge handling
-MOVETYPE_FLY,
-MOVETYPE_TOSS,			// gravity
-MOVETYPE_FLYMISSILE,	// extra size to monsters
-MOVETYPE_BOUNCE
+	MOVETYPE_WALK,			// gravity
+	MOVETYPE_STEP,			// gravity, special edge handling
+	MOVETYPE_FLY,
+	MOVETYPE_TOSS,			// gravity
+	MOVETYPE_FLYMISSILE,	// extra size to monsters
+	MOVETYPE_BOUNCE
 } movetype_t;
 
 
@@ -272,7 +274,7 @@ typedef struct
 	char		helpmessage1[512];
 	char		helpmessage2[512];
 	int			helpchanged;	// flash F1 icon if non 0, play sound
-								// and increment only if 1, 2, or 3
+	// and increment only if 1, 2, or 3
 
 	gclient_t	*clients;		// [maxclients]
 
@@ -524,6 +526,7 @@ extern	cvar_t	*fraglimit;
 extern	cvar_t	*timelimit;
 extern	cvar_t	*password;
 extern	cvar_t	*spectator_password;
+extern	cvar_t	*needpass;
 extern	cvar_t	*g_select_empty;
 extern	cvar_t	*dedicated;
 
@@ -571,7 +574,7 @@ extern	cvar_t	*sv_maplist;
 #define FFL_NOSPAWN			2
 
 typedef enum {
-	F_INT, 
+	F_INT,
 	F_FLOAT,
 	F_LSTRING,			// string on disk, pointer in memory, TAG_LEVEL
 	F_GSTRING,			// string on disk, pointer in memory, TAG_GAME
@@ -836,9 +839,9 @@ typedef struct
 	int			hand;
 
 	qboolean	connected;			// a loadgame will leave valid entities that
-									// just don't have a connection yet
+	// just don't have a connection yet
 
-	// values saved and restored from edicts when changing levels
+// values saved and restored from edicts when changing levels
 	int			health;
 	int			max_health;
 	int			savedFlags;
@@ -864,6 +867,8 @@ typedef struct
 	int			helpchanged;
 
 	qboolean	spectator;			// client is a spectator
+
+	int          chasetoggle;
 } client_persistant_t;
 
 // client data that stays across deathmatch respawns
@@ -961,6 +966,13 @@ struct gclient_s
 
 	edict_t		*chase_target;		// player we are chasing
 	qboolean	update_chase;		// need to update chase info?
+	//SKULL
+	int         chasetoggle;
+	edict_t		*chasecam;
+	edict_t		*oldplayer;
+	int         use;
+	int			zoom;
+	int			delayedstart;
 };
 
 
@@ -968,16 +980,16 @@ struct edict_s
 {
 	entity_state_t	s;
 	struct gclient_s	*client;	// NULL if not a player
-									// the server expects the first part
-									// of gclient_s to be a player_state_t
-									// but the rest of it is opaque
+	// the server expects the first part
+	// of gclient_s to be a player_state_t
+	// but the rest of it is opaque
 
 	qboolean	inuse;
 	int			linkcount;
 
 	// FIXME: move these fields to a server private sv_entity_t
 	link_t		area;				// linked to a division node or leaf
-	
+
 	int			num_clusters;		// if -1, use headnode instead
 	int			clusternums[MAX_ENT_CLUSTERS];
 	int			headnode;			// unused if num_clusters != -1
@@ -1002,7 +1014,7 @@ struct edict_s
 
 	char		*model;
 	float		freetime;			// sv.time when the object was freed
-	
+
 	//
 	// only used locally in game, not by server
 	//
@@ -1031,7 +1043,7 @@ struct edict_s
 	int			mass;
 	float		air_finished;
 	float		gravity;		// per entity gravity multiplier (1.0 is normal)
-								// use for lowgrav artifact, flares
+	// use for lowgrav artifact, flares
 
 	edict_t		*goalentity;
 	edict_t		*movetarget;
@@ -1111,5 +1123,25 @@ struct edict_s
 	// common data blocks
 	moveinfo_t		moveinfo;
 	monsterinfo_t	monsterinfo;
+	//SKULL
+	int     chasedist1;
+	int     chasedist2;
+	edict_t* crosshair;
+	//END
 };
 
+//SKULL
+extern  cvar_t	*tpp;
+extern  cvar_t	*crossh;
+extern void CheckChasecam_Viewent(edict_t *ent);
+extern void Cmd_Chasecam_Toggle(edict_t *ent);
+extern void ChasecamRemove(edict_t *ent, int opt);
+extern void ChasecamStart(edict_t *ent);
+extern void Cmd_ToggleHud();
+extern char* single_statusbar;
+extern void MakeFakeCrosshair(edict_t *ent);
+extern void UpdateFakeCrosshair(edict_t *ent);
+extern void DestroyFakeCrosshair(edict_t *ent);
+#define OPTION_OFF        0
+#define OPTION_BACKGROUND 1
+//END

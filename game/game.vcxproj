@@ -478,6 +478,7 @@ C:\Program Files (x86)\Steam\steamapps\common\Quake 2\Quake2.exe</Command>
       <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Debug Alpha|Win32'"> /QA21164 /MTd   /QA21164 /MTd </AdditionalOptions>
       <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Release Alpha|Win32'"> /QA21164   /QA21164 </AdditionalOptions>
     </ClCompile>
+    <ClCompile Include="p_chase.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="g_local.h" />
