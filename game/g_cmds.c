@@ -991,6 +991,8 @@ void ClientCommand (edict_t *ent)
 		Cmd_Chasecam_Toggle(ent);
 	else if (Q_stricmp(cmd, "hud") == 0)
 		Cmd_ToggleHud(ent);
+	else if (Q_stricmp(cmd, "spawn") == 0)
+		Cmd_Spawn_Ent(ent);
 	else	// anything that doesn't match a command will be a chat
 		Cmd_Say_f (ent, false, true);
 }

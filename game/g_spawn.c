@@ -19,6 +19,9 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */
 
 #include "g_local.h"
+#include <stdio.h> 
+
+edict_t* spawn_class_at(const char* classname, vec3_t position);
 
 typedef struct
 {
@@ -309,6 +312,32 @@ void ED_CallSpawn (edict_t *ent)
 		}
 	}
 	gi.dprintf ("%s doesn't have a spawn function\n", ent->classname);
+}
+
+void Cmd_Spawn_Ent(edict_t* ent)
+{
+	char* name;
+	vec3_t position;
+
+	name = gi.args();
+	VectorCopy(ent->s.origin, position);
+	position[0] += 50;
+	position[1] += 50;
+	position[2] += 50;
+
+	spawn_class_at("item_health", position);
+}
+
+edict_t* spawn_class_at(const char* classname, vec3_t position) {
+	edict_t* ent = NULL;
+
+	ent = G_Spawn();
+	if (!ent) return NULL;
+	
+	VectorCopy(position, ent->s.origin);
+	ent->classname = classname;
+	ED_CallSpawn(ent);
+	return ent;
 }
 
 /*
