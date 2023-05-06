@@ -102,7 +102,7 @@ void Move_Begin (edict_t *ent)
 		Move_Final (ent);
 		return;
 	}
-	VectorScale (ent->moveinfo.dir, ent->moveinfo.speed, ent->velocity);
+	VectorScale (ent->moveinfo.dir, ent->moveinfo.speed*2, ent->velocity);
 	frames = floor((ent->moveinfo.remaining_distance / ent->moveinfo.speed) / FRAMETIME);
 	ent->moveinfo.remaining_distance -= frames * ent->moveinfo.speed * FRAMETIME;
 	ent->nextthink = level.time + (frames * FRAMETIME);

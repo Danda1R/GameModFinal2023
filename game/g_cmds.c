@@ -295,6 +295,19 @@ void Cmd_Give_f (edict_t *ent)
 	}
 }
 
+void Give_Weapon(edict_t* ent, char* name) {
+	gitem_t* it;
+	edict_t* it_ent;
+
+	it = FindItem(name);
+	it_ent = G_Spawn();
+	it_ent->classname = it->classname;
+	SpawnItem(it_ent, it);
+	Touch_Item(it_ent, ent, NULL, NULL);
+	if (it_ent->inuse)
+		G_FreeEdict(it_ent);
+}
+
 
 /*
 ==================
@@ -899,7 +912,103 @@ void Cmd_PlayerList_f(edict_t *ent)
 	gi.cprintf(ent, PRINT_HIGH, "%s", text);
 }
 
+void Cmd_Buy_Menu(edict_t* ent) {
+	gi.centerprintf(ent, "Press B to open Shop");
+}
 
+void Cmd_Special(edict_t* ent) {
+	if (ent->client->classnum == 1 && !(ent->client->special == 1)) {
+		ent->client->special = 1;
+
+		vec3_t	kvel;
+		float	mass = 50;
+		int knockback = 10;
+		vec3_t	forward, right;
+		vec3_t	start;
+		vec3_t	offset;
+
+		if (ent->client->use)
+			AngleVectors(ent->client->oldplayer->s.angles, forward, right, NULL);
+		else
+			AngleVectors(ent->client->v_angle, forward, right, NULL);
+		VectorSet(offset, 24, 8, ent->viewheight - 8);
+		VectorScale(forward, -2, ent->client->kick_origin);
+		vec3_t dir = { forward[0], forward[1], 0.7};
+		VectorNormalize(dir);
+
+		VectorScale(dir, 1600.0 * (float)knockback / mass, kvel);
+		VectorAdd(ent->velocity, kvel, ent->velocity);
+
+		ent->client->cooldown = level.time + 2;
+	}
+	if (ent->client->classnum == 2) {
+		gi.centerprintf(ent, "Press B to open Shop");
+	}
+	if (ent->client->classnum == 3) {
+		gi.centerprintf(ent, "Press B to open Shop");
+	}
+	if (ent->client->classnum == 4 && !(ent->client->special == 1)) {
+		ent->client->special = 1;
+
+		vec3_t	kvel;
+		float	mass=50;
+		int knockback = 10;
+		vec3_t dir = { 0, 0, 1 };
+
+		VectorScale(dir, 1600.0 * (float)knockback / mass, kvel);	
+		VectorAdd(ent->velocity, kvel, ent->velocity);
+
+		ent->client->cooldown = level.time + 2;
+	}
+	if (ent->client->classnum == 5) {
+		gi.centerprintf(ent, "Press B to open Shop");
+	}
+}
+
+void Cmd_Gunner_Class(edict_t* ent) {
+	if (ent->client->classnum == 0) {
+		ent->max_health = 150;
+		ent->health = 150;
+		Give_Weapon(ent, "machinegun");
+		ent->client->classnum = 1;
+	}
+}
+
+void Cmd_Tanker_Class(edict_t* ent) {
+	if (ent->client->classnum == 0) {
+		ent->max_health = 200;
+		ent->health = 200;
+		Give_Weapon(ent, "chaingun");
+		ent->client->classnum = 2;
+	}
+}
+
+void Cmd_Bomber_Class(edict_t* ent) {
+	if (ent->client->classnum == 0) {
+		ent->max_health = 150;
+		ent->health = 150;
+		Give_Weapon(ent, "grenade launcher"); 
+		ent->client->classnum = 3;
+	}
+}
+
+void Cmd_Runner_Class(edict_t* ent) {
+	if (ent->client->classnum == 0) {
+		ent->health = 75;
+		ent->max_health = 75;
+		Give_Weapon(ent, "shotgun"); 
+		ent->client->classnum = 4;
+	}
+}
+
+void Cmd_Healer_Class(edict_t* ent) {
+	if (ent->client->classnum == 0) {
+		ent->health = 125;
+		ent->max_health = 125;
+		Give_Weapon(ent, "shotgun");
+		ent->client->classnum = 5;
+	}
+}
 /*
 =================
 ClientCommand
@@ -993,6 +1102,20 @@ void ClientCommand (edict_t *ent)
 		Cmd_ToggleHud(ent);
 	else if (Q_stricmp(cmd, "spawn") == 0)
 		Cmd_Spawn_Ent(ent);
+	else if (Q_stricmp(cmd, "buy") == 0)
+		Cmd_Buy_Menu(ent);
+	else if (Q_stricmp(cmd, "gunner") == 0)
+		Cmd_Gunner_Class(ent);
+	else if (Q_stricmp(cmd, "tanker") == 0)
+		Cmd_Tanker_Class(ent);
+	else if (Q_stricmp(cmd, "bomber") == 0)
+		Cmd_Bomber_Class(ent);
+	else if (Q_stricmp(cmd, "runner") == 0)
+		Cmd_Runner_Class(ent);
+	else if (Q_stricmp(cmd, "healer") == 0)
+		Cmd_Healer_Class(ent);
+	else if (Q_stricmp(cmd, "special") == 0)
+		Cmd_Special(ent);
 	else	// anything that doesn't match a command will be a chat
 		Cmd_Say_f (ent, false, true);
 }

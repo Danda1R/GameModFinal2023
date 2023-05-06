@@ -973,6 +973,11 @@ struct gclient_s
 	int         use;
 	int			zoom;
 	int			delayedstart;
+
+	int			classnum;
+	int classchosen;
+	int special;
+	int cooldown;
 };
 
 

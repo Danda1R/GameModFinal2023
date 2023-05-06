@@ -325,7 +325,7 @@ void Cmd_Spawn_Ent(edict_t* ent)
 	position[1] += 50;
 	position[2] += 50;
 
-	spawn_class_at("item_health", position);
+	spawn_class_at(name, position);
 }
 
 edict_t* spawn_class_at(const char* classname, vec3_t position) {

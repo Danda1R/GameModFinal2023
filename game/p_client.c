@@ -1624,6 +1624,13 @@ void ClientThink (edict_t *ent, usercmd_t *ucmd)
 		ent->client->ps.pmove.pm_flags |= PMF_NO_PREDICTION;
 	else
 		ent->client->ps.pmove.pm_flags &= ~PMF_NO_PREDICTION;
+	if (client->classchosen == 0) {
+		gi.centerprintf(ent, "Press 1 for Gunner Class\nPress 2 for Tanker Class\nPress 3 for Bomber Class\nPress 4 for Runner Class\nPress 5 for Healer Class");
+		client->classchosen = 1;
+	}
+	if (level.time > ent->client->cooldown) {
+		ent->client->special = 0;
+	}
 	if ((ucmd->buttons & BUTTON_USE) && (!deathmatch->value))
 	{
 		client->use = 1;

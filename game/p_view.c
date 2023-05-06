@@ -541,6 +541,8 @@ void P_FallingDamage (edict_t *ent)
 	// never take falling damage if completely underwater
 	if (ent->waterlevel == 3)
 		return;
+	if (ent->client->special == 1)
+		return;
 	if (ent->waterlevel == 2)
 		delta *= 0.25;
 	if (ent->waterlevel == 1)
