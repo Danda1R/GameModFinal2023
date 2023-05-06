@@ -18,12 +18,7 @@ C:\Users\dandar\Downloads\Git\GameModFinal2023\game\g_cmds.c(910,3): warning C49
 C:\Users\dandar\Downloads\Git\GameModFinal2023\game\g_cmds.c(898,3): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
 C:\Users\dandar\Downloads\Git\GameModFinal2023\game\g_cmds.c(906,4): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
 C:\Users\dandar\Downloads\Git\GameModFinal2023\game\g_cmds.c(927,10): warning C4101: 'start': unreferenced local variable
-C:\Users\dandar\Downloads\Git\GameModFinal2023\game\g_cmds.c(1104,3): warning C4013: 'Cmd_Spawn_Ent' undefined; assuming extern returning int
-  p_view.c
-C:\Users\dandar\Downloads\Git\GameModFinal2023\game\g_local.h(33,1): warning C4005: 'GAMEVERSION': macro redefinition
-C:\Users\dandar\Downloads\Git\GameModFinal2023\game\g_local.h(30,1): message : see previous definition of 'GAMEVERSION'
-C:\Users\dandar\Downloads\Git\GameModFinal2023\game\p_view.c(42,27): warning C4100: 'angles': unreferenced formal parameter
-  Generating Code...
+C:\Users\dandar\Downloads\Git\GameModFinal2023\game\g_cmds.c(1120,3): warning C4013: 'Cmd_Spawn_Ent' undefined; assuming extern returning int
      Creating library .\..\release\gamex86.lib and object .\..\release\gamex86.exp
   game.vcxproj -> C:\Users\dandar\Downloads\Git\GameModFinal2023\game\release\gamex86.dll
           1 file(s) copied.

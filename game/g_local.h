@@ -978,6 +978,8 @@ struct gclient_s
 	int classchosen;
 	int special;
 	int cooldown;
+	int grenade_boolean;
+	int grenade_powerup_time;
 };
 
 

@@ -1631,6 +1631,12 @@ void ClientThink (edict_t *ent, usercmd_t *ucmd)
 	if (level.time > ent->client->cooldown) {
 		ent->client->special = 0;
 	}
+	if(level.time > ent->client->grenade_powerup_time){
+		ent->client->grenade_boolean = 0;
+	}
+	else if(ent->client->grenade_boolean == 1){
+		gi.centerprintf(ent, "Grenade Power Up");
+	}
 	if ((ucmd->buttons & BUTTON_USE) && (!deathmatch->value))
 	{
 		client->use = 1;

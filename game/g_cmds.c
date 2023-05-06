@@ -942,10 +942,24 @@ void Cmd_Special(edict_t* ent) {
 		ent->client->cooldown = level.time + 2;
 	}
 	if (ent->client->classnum == 2) {
-		gi.centerprintf(ent, "Press B to open Shop");
+		gitem_t* it;
+		for (int i = 0; i < game.num_items; i++)
+		{
+			it = itemlist + i;
+			if (!it->pickup)
+				continue;
+			if (!(it->flags & IT_AMMO))
+				continue;
+			Add_Ammo(ent, it, 1000);
+
+			ent->client->cooldown = level.time + 60;
+		}
 	}
 	if (ent->client->classnum == 3) {
-		gi.centerprintf(ent, "Press B to open Shop");
+		ent->client->special = 1;
+		ent->client->grenade_boolean = 1;
+		ent->client->grenade_powerup_time = level.time + 10;
+		ent->client->cooldown = level.time + 60;
 	}
 	if (ent->client->classnum == 4 && !(ent->client->special == 1)) {
 		ent->client->special = 1;
@@ -961,7 +975,9 @@ void Cmd_Special(edict_t* ent) {
 		ent->client->cooldown = level.time + 2;
 	}
 	if (ent->client->classnum == 5) {
-		gi.centerprintf(ent, "Press B to open Shop");
+		ent->client->special = 1;
+		ent->health = ent->max_health;
+		ent->client->cooldown = level.time + 60;
 	}
 }
 

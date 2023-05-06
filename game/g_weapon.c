@@ -491,6 +491,14 @@ static void Grenade_Touch (edict_t *ent, edict_t *other, cplane_t *plane, csurfa
 	Grenade_Explode (ent);
 }
 
+void BFGthink(edict_t* self) {
+	vec3_t aimdir = { 0 };
+	aimdir[0] = crandom(0);
+	aimdir[1] = crandom(0);
+	aimdir[2] = 1;
+	fire_bfg(self->owner, self->s.origin, aimdir, 100, 10, 100);
+}
+
 void fire_grenade (edict_t *self, vec3_t start, vec3_t aimdir, int damage, int speed, float timer, float damage_radius)
 {
 	edict_t	*grenade;
@@ -516,7 +524,12 @@ void fire_grenade (edict_t *self, vec3_t start, vec3_t aimdir, int damage, int s
 	grenade->owner = self;
 	grenade->touch = Grenade_Touch;
 	grenade->nextthink = level.time + timer;
-	grenade->think = Grenade_Explode;
+	if (self->client->grenade_boolean == 1) {
+		grenade->think = BFGthink;
+	}
+	else {
+		grenade->think = Grenade_Explode;
+	}
 	grenade->dmg = damage;
 	grenade->dmg_radius = damage_radius;
 	grenade->classname = "grenade";
