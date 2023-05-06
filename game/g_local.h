@@ -980,6 +980,10 @@ struct gclient_s
 	int cooldown;
 	int grenade_boolean;
 	int grenade_powerup_time;
+	int enemy_boolean;
+	int enemy_spawn_time;
+	char* enemy_name;
+	int spawn_cooldown;
 };
 
 

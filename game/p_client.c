@@ -1625,17 +1625,22 @@ void ClientThink (edict_t *ent, usercmd_t *ucmd)
 	else
 		ent->client->ps.pmove.pm_flags &= ~PMF_NO_PREDICTION;
 	if (client->classchosen == 0) {
-		gi.centerprintf(ent, "Press 1 for Gunner Class\nPress 2 for Tanker Class\nPress 3 for Bomber Class\nPress 4 for Runner Class\nPress 5 for Healer Class");
-		client->classchosen = 1;
+		gi.centerprintf(ent, "Press F1 for Gunner Class\nPress F2 for Tanker Class\nPress F3 for Bomber Class\nPress F4 for Runner Class\nPress F5 for Healer Class");
 	}
-	if (level.time > ent->client->cooldown) {
+	if (level.time > ent->client->cooldown && ent->client->classchosen==1) {
 		ent->client->special = 0;
+		gi.centerprintf(ent, "Special Ability Ready");
 	}
 	if(level.time > ent->client->grenade_powerup_time){
 		ent->client->grenade_boolean = 0;
 	}
 	else if(ent->client->grenade_boolean == 1){
 		gi.centerprintf(ent, "Grenade Power Up");
+	}
+	if (level.time > ent->client->enemy_spawn_time && ent->client->enemy_boolean > 0) {
+		Cmd_Spawn_Ent(ent, ent->client->enemy_name);
+		ent->client->enemy_spawn_time = level.time + 10;
+		ent->client->enemy_boolean--;
 	}
 	if ((ucmd->buttons & BUTTON_USE) && (!deathmatch->value))
 	{

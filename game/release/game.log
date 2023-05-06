@@ -2,23 +2,41 @@
   g_cmds.c
 C:\Users\dandar\Downloads\Git\GameModFinal2023\game\g_local.h(33,1): warning C4005: 'GAMEVERSION': macro redefinition
 C:\Users\dandar\Downloads\Git\GameModFinal2023\game\g_local.h(30,1): message : see previous definition of 'GAMEVERSION'
-C:\Users\dandar\Downloads\Git\GameModFinal2023\game\g_cmds.c(34,2): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-C:\Users\dandar\Downloads\Git\GameModFinal2023\game\g_cmds.c(57,2): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-C:\Users\dandar\Downloads\Git\GameModFinal2023\game\g_cmds.c(58,2): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-C:\Users\dandar\Downloads\Git\GameModFinal2023\game\g_cmds.c(735,4): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-C:\Users\dandar\Downloads\Git\GameModFinal2023\game\g_cmds.c(738,3): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-C:\Users\dandar\Downloads\Git\GameModFinal2023\game\g_cmds.c(821,3): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-C:\Users\dandar\Downloads\Git\GameModFinal2023\game\g_cmds.c(822,3): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-C:\Users\dandar\Downloads\Git\GameModFinal2023\game\g_cmds.c(823,3): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-C:\Users\dandar\Downloads\Git\GameModFinal2023\game\g_cmds.c(834,3): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-C:\Users\dandar\Downloads\Git\GameModFinal2023\game\g_cmds.c(841,2): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-C:\Users\dandar\Downloads\Git\GameModFinal2023\game\g_cmds.c(888,7): warning C4459: declaration of 'st' hides global declaration
+C:\Users\dandar\Downloads\Git\GameModFinal2023\game\g_cmds.c(60,2): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\dandar\Downloads\Git\GameModFinal2023\game\g_cmds.c(83,2): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\dandar\Downloads\Git\GameModFinal2023\game\g_cmds.c(84,2): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\dandar\Downloads\Git\GameModFinal2023\game\g_cmds.c(761,4): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\dandar\Downloads\Git\GameModFinal2023\game\g_cmds.c(764,3): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\dandar\Downloads\Git\GameModFinal2023\game\g_cmds.c(847,3): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\dandar\Downloads\Git\GameModFinal2023\game\g_cmds.c(848,3): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\dandar\Downloads\Git\GameModFinal2023\game\g_cmds.c(849,3): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\dandar\Downloads\Git\GameModFinal2023\game\g_cmds.c(860,3): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\dandar\Downloads\Git\GameModFinal2023\game\g_cmds.c(867,2): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\dandar\Downloads\Git\GameModFinal2023\game\g_cmds.c(914,7): warning C4459: declaration of 'st' hides global declaration
 C:\Users\dandar\Downloads\Git\GameModFinal2023\game\g_local.h(460,21): message : see declaration of 'st'
-C:\Users\dandar\Downloads\Git\GameModFinal2023\game\g_cmds.c(910,3): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-C:\Users\dandar\Downloads\Git\GameModFinal2023\game\g_cmds.c(898,3): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-C:\Users\dandar\Downloads\Git\GameModFinal2023\game\g_cmds.c(906,4): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-C:\Users\dandar\Downloads\Git\GameModFinal2023\game\g_cmds.c(927,10): warning C4101: 'start': unreferenced local variable
-C:\Users\dandar\Downloads\Git\GameModFinal2023\game\g_cmds.c(1120,3): warning C4013: 'Cmd_Spawn_Ent' undefined; assuming extern returning int
+C:\Users\dandar\Downloads\Git\GameModFinal2023\game\g_cmds.c(936,3): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\dandar\Downloads\Git\GameModFinal2023\game\g_cmds.c(924,3): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\dandar\Downloads\Git\GameModFinal2023\game\g_cmds.c(932,4): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\dandar\Downloads\Git\GameModFinal2023\game\g_cmds.c(954,11): warning C4101: 'start': unreferenced local variable
+C:\Users\dandar\Downloads\Git\GameModFinal2023\game\g_cmds.c(1194,3): warning C4013: 'Cmd_Spawn_Ent' undefined; assuming extern returning int
+  p_client.c
+C:\Users\dandar\Downloads\Git\GameModFinal2023\game\g_local.h(33,1): warning C4005: 'GAMEVERSION': macro redefinition
+C:\Users\dandar\Downloads\Git\GameModFinal2023\game\g_local.h(30,1): message : see previous definition of 'GAMEVERSION'
+C:\Users\dandar\Downloads\Git\GameModFinal2023\game\p_client.c(51,42): warning C4100: 'self': unreferenced formal parameter
+C:\Users\dandar\Downloads\Git\GameModFinal2023\game\p_client.c(160,66): warning C4100: 'damage': unreferenced formal parameter
+C:\Users\dandar\Downloads\Git\GameModFinal2023\game\p_client.c(160,56): warning C4100: 'kick': unreferenced formal parameter
+C:\Users\dandar\Downloads\Git\GameModFinal2023\game\p_client.c(160,43): warning C4100: 'other': unreferenced formal parameter
+C:\Users\dandar\Downloads\Git\GameModFinal2023\game\p_client.c(160,28): warning C4100: 'self': unreferenced formal parameter
+C:\Users\dandar\Downloads\Git\GameModFinal2023\game\p_client.c(192,46): warning C4100: 'inflictor': unreferenced formal parameter
+C:\Users\dandar\Downloads\Git\GameModFinal2023\game\p_client.c(482,91): warning C4100: 'point': unreferenced formal parameter
+C:\Users\dandar\Downloads\Git\GameModFinal2023\game\p_client.c(923,89): warning C4100: 'point': unreferenced formal parameter
+C:\Users\dandar\Downloads\Git\GameModFinal2023\game\p_client.c(923,60): warning C4100: 'attacker': unreferenced formal parameter
+C:\Users\dandar\Downloads\Git\GameModFinal2023\game\p_client.c(923,40): warning C4100: 'inflictor': unreferenced formal parameter
+C:\Users\dandar\Downloads\Git\GameModFinal2023\game\p_client.c(1398,3): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\dandar\Downloads\Git\GameModFinal2023\game\p_client.c(1403,2): warning C4996: 'strncpy': This function or variable may be unsafe. Consider using strncpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\dandar\Downloads\Git\GameModFinal2023\game\p_client.c(1443,2): warning C4996: 'strncpy': This function or variable may be unsafe. Consider using strncpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\dandar\Downloads\Git\GameModFinal2023\game\p_client.c(1641,3): warning C4013: 'Cmd_Spawn_Ent' undefined; assuming extern returning int
+  Generating Code...
      Creating library .\..\release\gamex86.lib and object .\..\release\gamex86.exp
   game.vcxproj -> C:\Users\dandar\Downloads\Git\GameModFinal2023\game\release\gamex86.dll
           1 file(s) copied.

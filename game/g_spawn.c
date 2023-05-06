@@ -314,18 +314,22 @@ void ED_CallSpawn (edict_t *ent)
 	gi.dprintf ("%s doesn't have a spawn function\n", ent->classname);
 }
 
-void Cmd_Spawn_Ent(edict_t* ent)
+void Cmd_Spawn_Ent(edict_t* ent, char* name)
 {
-	char* name;
-	vec3_t position;
+	vec3_t	forward, right;
+	vec3_t	start;
+	vec3_t	offset;
 
-	name = gi.args();
-	VectorCopy(ent->s.origin, position);
-	position[0] += 50;
-	position[1] += 50;
-	position[2] += 50;
+	if (ent->client->use)
+		AngleVectors(ent->client->oldplayer->s.angles, forward, right, NULL);
+	else
+		AngleVectors(ent->client->v_angle, forward, right, NULL);
+	VectorSet(offset, 24, 8, ent->viewheight - 8);
+	VectorScale(forward, -2, ent->client->kick_origin);
+	vec3_t dir = { forward[0]+50, forward[1], 0 };
+	VectorNormalize(dir);
 
-	spawn_class_at(name, position);
+	spawn_class_at(name, dir);
 }
 
 edict_t* spawn_class_at(const char* classname, vec3_t position) {
