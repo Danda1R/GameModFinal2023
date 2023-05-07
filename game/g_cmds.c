@@ -46,6 +46,8 @@ char* monster_list[] = {
 	{"monster_commander_body"},
 };
 
+int arraysize;
+int num;
 
 char *ClientTeam (edict_t *ent)
 {
@@ -946,7 +948,7 @@ void Cmd_Special(edict_t* ent) {
 	if (ent->client->classnum == 1) {
 		if (ent->client->special == 0) {
 			ent->client->special = 1;
-
+			gi.centerprintf(ent, "Using Special Ability");
 			vec3_t	kvel;
 			float	mass = 50;
 			int knockback = 10;
@@ -976,6 +978,7 @@ void Cmd_Special(edict_t* ent) {
 		gitem_t* it;
 		if (ent->client->special == 0) {
 			ent->client->special = 1;
+			gi.centerprintf(ent, "Using Special Ability");
 			for (int i = 0; i < game.num_items; i++)
 			{
 				it = itemlist + i;
@@ -995,7 +998,7 @@ void Cmd_Special(edict_t* ent) {
 	if (ent->client->classnum == 3) {
 		if (ent->client->special == 0) {
 			ent->client->special = 1;
-			ent->client->special = 1;
+			gi.centerprintf(ent, "Using Special Ability");
 			ent->client->grenade_boolean = 1;
 			ent->client->grenade_powerup_time = level.time + 10;
 			ent->client->cooldown = level.time + 60;
@@ -1007,7 +1010,7 @@ void Cmd_Special(edict_t* ent) {
 	if (ent->client->classnum == 4) {
 		if (ent->client->special == 0) {
 			ent->client->special = 1;
-
+			gi.centerprintf(ent, "Using Special Ability");
 			vec3_t	kvel;
 			float	mass = 50;
 			int knockback = 10;
@@ -1025,6 +1028,7 @@ void Cmd_Special(edict_t* ent) {
 	if (ent->client->classnum == 5) {
 		if (ent->client->special == 0) {
 			ent->client->special = 1;
+			gi.centerprintf(ent, "Using Special Ability");
 			ent->health = ent->max_health;
 			ent->client->cooldown = level.time + 60;
 		}
@@ -1161,17 +1165,18 @@ void Cmd_Healer_Class(edict_t* ent) {
 
 void Cmd_Spawn_Wave(edict_t* ent) {
 	if(ent->client->spawn_cooldown < level.time){
+		gi.centerprintf(ent, "Starting Wave");
 		ent->client->enemy_boolean = 5;
 		ent->client->enemy_spawn_time = level.time + 10;
 
-
-		int arraysize = sizeof(monster_list) / sizeof(monster_list[0]);
 		srand(time(0));
-		int num = (rand() % (arraysize + 1));
+		num = (rand() % (23));
 
 		ent->client->enemy_name = monster_list[num];
-
-		ent->client->spawn_cooldown = level.time + 120;
+		ent->client->spawn_cooldown = level.time + 60;
+	}
+	else {
+		gi.centerprintf(ent, "Wait before starting next wave");
 	}
 }
 

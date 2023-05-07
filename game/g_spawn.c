@@ -314,9 +314,9 @@ void ED_CallSpawn (edict_t *ent)
 	gi.dprintf ("%s doesn't have a spawn function\n", ent->classname);
 }
 
-void Cmd_Spawn_Ent(edict_t* ent, char* name)
+void Cmd_Spawn_Ent(edict_t* ent, char* name, int space)
 {
-	vec3_t	forward, right;
+	/*vec3_t	forward, right;
 	vec3_t	start;
 	vec3_t	offset;
 
@@ -326,9 +326,9 @@ void Cmd_Spawn_Ent(edict_t* ent, char* name)
 		AngleVectors(ent->client->v_angle, forward, right, NULL);
 	VectorSet(offset, 24, 8, ent->viewheight - 8);
 	VectorScale(forward, -2, ent->client->kick_origin);
-	vec3_t dir = { forward[0]+50, forward[1], 0 };
-	VectorNormalize(dir);
+	ent->s.origin;*/
 
+	vec3_t dir = { ent->s.origin[0] + 50, ent->s.origin[1] + 10 * space, 50};
 	spawn_class_at(name, dir);
 }
 

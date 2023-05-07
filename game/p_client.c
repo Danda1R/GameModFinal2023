@@ -1637,9 +1637,10 @@ void ClientThink (edict_t *ent, usercmd_t *ucmd)
 		gi.centerprintf(ent, "Grenade Power Up");
 	}
 	if (level.time > ent->client->enemy_spawn_time && ent->client->enemy_boolean > 0) {
-		Cmd_Spawn_Ent(ent, ent->client->enemy_name);
+		Cmd_Spawn_Ent(ent, ent->client->enemy_name, ent->client->enemy_boolean);
 		ent->client->enemy_spawn_time = level.time + 10;
 		ent->client->enemy_boolean--;
+		gi.centerprintf(ent, "Spawning Enemy");
 	}
 	if ((ucmd->buttons & BUTTON_USE) && (!deathmatch->value))
 	{
