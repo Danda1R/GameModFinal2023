@@ -986,6 +986,7 @@ struct gclient_s
 	int			weapon_price;
 	int			weapon_num;
 	char*		weapon_name;
+	int			help_menu;
 };
 
 

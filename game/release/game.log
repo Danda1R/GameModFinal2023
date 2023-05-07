@@ -18,7 +18,9 @@ C:\Users\dandar\Downloads\Git\GameModFinal2023\game\g_cmds.c(936,3): warning C49
 C:\Users\dandar\Downloads\Git\GameModFinal2023\game\g_cmds.c(924,3): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
 C:\Users\dandar\Downloads\Git\GameModFinal2023\game\g_cmds.c(932,4): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
 C:\Users\dandar\Downloads\Git\GameModFinal2023\game\g_cmds.c(954,11): warning C4101: 'start': unreferenced local variable
-C:\Users\dandar\Downloads\Git\GameModFinal2023\game\g_cmds.c(1274,3): warning C4013: 'Cmd_Spawn_Ent' undefined; assuming extern returning int
+C:\Users\dandar\Downloads\Git\GameModFinal2023\game\g_cmds.c(1185,26): warning C4553: '==': result of expression not used; did you intend '='?
+C:\Users\dandar\Downloads\Git\GameModFinal2023\game\g_cmds.c(1187,26): warning C4553: '==': result of expression not used; did you intend '='?
+C:\Users\dandar\Downloads\Git\GameModFinal2023\game\g_cmds.c(1298,3): warning C4013: 'Cmd_Spawn_Ent' undefined; assuming extern returning int
      Creating library .\..\release\gamex86.lib and object .\..\release\gamex86.exp
   game.vcxproj -> C:\Users\dandar\Downloads\Git\GameModFinal2023\game\release\gamex86.dll
           1 file(s) copied.

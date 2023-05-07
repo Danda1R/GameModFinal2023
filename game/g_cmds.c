@@ -1179,6 +1179,30 @@ void Cmd_Open_Shop(edict_t* ent) {
 	if(ent->client->classchosen==1)
 		gi.cprintf(ent, PRINT_HIGH, "\nPezos: %d\nF1.%s - %d pezos F2.%s - 400 pezos\nF3.%s - 800 pezos F4.%s - 800 pezos", ent->client->pezos, ent->client->weapon_name, ent->client->weapon_price, "Health & Ammo Pack", "Quad Damage", "Invulnerability");
 }
+
+void Cmd_Help_Screen(edict_t* ent) {
+	if (ent->client->help_menu == 0)
+		ent->client->help_menu == 1;
+	else
+		ent->client->help_menu == 0;
+	switch (ent->client->classnum) {
+		case 1:
+			gi.centerprintf(ent, "You are a Gunner\nYou have above average health, \nand are armed with a machine gun\nUse C to dash ahead of you\nUse B to open the shop");
+			break;
+		case 2:
+			gi.centerprintf(ent, "You are a Tanker\nYou have high health, \nand are armed with a chain gun\nUse C to max out your ammo \nevery 60 seconds\nUse B to open the shop");
+			break;
+		case 3:
+			gi.centerprintf(ent, "You are a Bomber\nYou have above average health, \nand are armed with a grenade launcher\nUse C to convert your grenades\ninto BFG bombs every 60 seconds\nUse B to open the shop");
+			break;
+		case 4:
+			gi.centerprintf(ent, "You are a Runner\nYou have low health, \nand are armed with a shotgun\nUse C to double jump\nUse B to open the shop");
+			break;
+		case 5:
+			gi.centerprintf(ent, "You are a Healer\nYou have below average health, \nand are armed with a shotgun\nUse C to heal yourself every 60 seconds\nUse B to open the shop");
+			break;
+	}
+}
 /*
 =================
 ClientCommand
@@ -1290,6 +1314,8 @@ void ClientCommand (edict_t *ent)
 		Cmd_Spawn_Wave(ent);
 	else if (Q_stricmp(cmd, "shop") == 0)
 		Cmd_Open_Shop(ent);
+	else if (Q_stricmp(cmd, "helpmenu") == 0)
+		Cmd_Help_Screen(ent);
 	else	// anything that doesn't match a command will be a chat
 		Cmd_Say_f (ent, false, true);
 }
