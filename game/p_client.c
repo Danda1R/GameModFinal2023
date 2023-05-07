@@ -1629,7 +1629,6 @@ void ClientThink (edict_t *ent, usercmd_t *ucmd)
 	}
 	if (level.time > ent->client->cooldown && ent->client->classchosen==1) {
 		ent->client->special = 0;
-		gi.centerprintf(ent, "Special Ability Ready");
 	}
 	if(level.time > ent->client->grenade_powerup_time){
 		ent->client->grenade_boolean = 0;

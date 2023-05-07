@@ -103,6 +103,7 @@ void Killed (edict_t *targ, edict_t *inflictor, edict_t *attacker, int damage, v
 		{
 			level.killed_monsters++;
 			attacker->client->resp.score++;
+			attacker->client->pezos += 100;
 			if (!(attacker->client->showscores)) {
 				Cmd_Score_f(attacker);
 			}

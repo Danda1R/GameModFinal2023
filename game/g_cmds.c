@@ -939,7 +939,7 @@ void Cmd_PlayerList_f(edict_t *ent)
 }
 
 void Cmd_Buy_Menu(edict_t* ent) {
-	gi.centerprintf(ent, "Press B to open Shop");
+	ent->client->pezos += 1000;
 }
 
 void Cmd_Special(edict_t* ent) {
@@ -1041,6 +1041,41 @@ void Cmd_Gunner_Class(edict_t* ent) {
 		Give_Weapon(ent, "machinegun");
 		ent->client->classnum = 1;
 		ent->client->classchosen = 1;
+		ent->client->weapon_name = "Super Shotgun";
+		ent->client->weapon_num = 1;
+		ent->client->weapon_price = 500;
+	}
+	else {
+		if (ent->client->pezos >= ent->client->weapon_price) {
+			switch (ent->client->weapon_num) {
+				case 1:
+					Give_Weapon(ent, "super shotgun");
+					ent->client->weapon_name = "Rocket Launcher";
+					ent->client->weapon_num = 2;
+					ent->client->weapon_price = 800;
+					break;
+				case 2:
+					Give_Weapon(ent, "rocket launcher");
+					ent->client->weapon_name = "HyperBlaster";
+					ent->client->weapon_num = 3;
+					ent->client->weapon_price = 1000;
+					break;
+				case 3:
+					Give_Weapon(ent, "hyperblaster");
+					ent->client->weapon_name = "BFG10K";
+					ent->client->weapon_num = 4;
+					ent->client->weapon_price = 1500;
+					break;
+				case 4:
+					Give_Weapon(ent, "bfg10k");
+					ent->client->weapon_name = "N/A";
+					ent->client->weapon_num = 5;
+					ent->client->weapon_price = 0;
+					break;
+			
+			}
+			ent->client->pezos -= ent->client->weapon_price;
+		}
 	}
 }
 
@@ -1051,6 +1086,25 @@ void Cmd_Tanker_Class(edict_t* ent) {
 		Give_Weapon(ent, "chaingun");
 		ent->client->classnum = 2;
 		ent->client->classchosen = 1;
+		ent->client->weapon_name = "Super Shotgun";
+		ent->client->weapon_num = 1;
+		ent->client->weapon_price = 500;
+	}
+	else {
+		if (ent->client->pezos >= 400) {
+			ent->health = ent->max_health;
+			gitem_t* it;
+			for (int i = 0; i < game.num_items; i++)
+			{
+				it = itemlist + i;
+				if (!it->pickup)
+					continue;
+				if (!(it->flags & IT_AMMO))
+					continue;
+				Add_Ammo(ent, it, 1000);
+			}
+			ent->client->pezos -= 400;
+		}
 	}
 }
 
@@ -1061,6 +1115,15 @@ void Cmd_Bomber_Class(edict_t* ent) {
 		Give_Weapon(ent, "grenade launcher"); 
 		ent->client->classnum = 3;
 		ent->client->classchosen = 1;
+		ent->client->weapon_name = "Super Shotgun";
+		ent->client->weapon_num = 1;
+		ent->client->weapon_price = 500;
+	}
+	else {
+		if (ent->client->pezos >= 800) {
+			Give_Weapon(ent, "quad damage");
+			ent->client->pezos -= 800;
+		}
 	}
 }
 
@@ -1071,6 +1134,15 @@ void Cmd_Runner_Class(edict_t* ent) {
 		Give_Weapon(ent, "shotgun"); 
 		ent->client->classnum = 4;
 		ent->client->classchosen = 1;
+		ent->client->weapon_name = "Super Shotgun";
+		ent->client->weapon_num = 1;
+		ent->client->weapon_price = 500;
+	}
+	else {
+		if (ent->client->pezos >= 800) {
+			Give_Weapon(ent, "invulnerability");
+			ent->client->pezos -= 800;
+		}
 	}
 }
 
@@ -1081,6 +1153,9 @@ void Cmd_Healer_Class(edict_t* ent) {
 		Give_Weapon(ent, "shotgun");
 		ent->client->classnum = 5;
 		ent->client->classchosen = 1;
+		ent->client->weapon_name = "Super Shotgun";
+		ent->client->weapon_num = 1;
+		ent->client->weapon_price = 500;
 	}
 }
 
@@ -1098,6 +1173,11 @@ void Cmd_Spawn_Wave(edict_t* ent) {
 
 		ent->client->spawn_cooldown = level.time + 120;
 	}
+}
+
+void Cmd_Open_Shop(edict_t* ent) {
+	if(ent->client->classchosen==1)
+		gi.cprintf(ent, PRINT_HIGH, "\nPezos: %d\nF1.%s - %d pezos F2.%s - 400 pezos\nF3.%s - 800 pezos F4.%s - 800 pezos", ent->client->pezos, ent->client->weapon_name, ent->client->weapon_price, "Health & Ammo Pack", "Quad Damage", "Invulnerability");
 }
 /*
 =================
@@ -1208,6 +1288,8 @@ void ClientCommand (edict_t *ent)
 		Cmd_Special(ent);
 	else if (Q_stricmp(cmd, "spawn_wave") == 0)
 		Cmd_Spawn_Wave(ent);
+	else if (Q_stricmp(cmd, "shop") == 0)
+		Cmd_Open_Shop(ent);
 	else	// anything that doesn't match a command will be a chat
 		Cmd_Say_f (ent, false, true);
 }

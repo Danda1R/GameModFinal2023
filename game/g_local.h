@@ -336,8 +336,6 @@ typedef struct
 	int			total_monsters;
 	int			killed_monsters;
 
-	int			pezos;
-
 	edict_t		*current_entity;	// entity running from G_RunFrame
 	int			body_que;			// dead bodies
 
@@ -975,22 +973,26 @@ struct gclient_s
 	int			delayedstart;
 
 	int			classnum;
-	int classchosen;
-	int special;
-	int cooldown;
-	int grenade_boolean;
-	int grenade_powerup_time;
-	int enemy_boolean;
-	int enemy_spawn_time;
-	char* enemy_name;
-	int spawn_cooldown;
+	int			classchosen;
+	int			special;
+	int			cooldown;
+	int			grenade_boolean;
+	int			grenade_powerup_time;
+	int			enemy_boolean;
+	int			enemy_spawn_time;
+	char*		enemy_name;
+	int			spawn_cooldown;
+	int			pezos;
+	int			weapon_price;
+	int			weapon_num;
+	char*		weapon_name;
 };
 
 
 struct edict_s
 {
 	entity_state_t	s;
-	struct gclient_s	*client;	// NULL if not a player
+	struct gclient_s	*client;	// NULL if not a player	
 	// the server expects the first part
 	// of gclient_s to be a player_state_t
 	// but the rest of it is opaque
