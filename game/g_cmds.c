@@ -1182,7 +1182,7 @@ void Cmd_Spawn_Wave(edict_t* ent) {
 
 void Cmd_Open_Shop(edict_t* ent) {
 	if(ent->client->classchosen==1)
-		gi.cprintf(ent, PRINT_HIGH, "\nPezos: %d\nF1.%s - %d pezos F2.%s - 400 pezos\nF3.%s - 800 pezos F4.%s - 800 pezos", ent->client->pezos, ent->client->weapon_name, ent->client->weapon_price, "Health & Ammo Pack", "Quad Damage", "Invulnerability");
+		gi.centerprintf(ent, "\nPezos: %d\nF1.%s - %d pezos\nF2.%s - 400 pezos\nF3.%s - 800 pezos\nF4.%s - 800 pezos", ent->client->pezos, ent->client->weapon_name, ent->client->weapon_price, "Health & Ammo Pack", "Quad Damage", "Invulnerability");
 }
 
 void Cmd_Help_Screen(edict_t* ent) {
