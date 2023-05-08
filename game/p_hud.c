@@ -321,21 +321,87 @@ void HelpComputer (edict_t *ent)
 		"xv 32 yv 8 picn help "			// background
 		"xv 202 yv 12 string2 \"%s\" "		// skill
 		"xv 0 yv 24 cstring2 \"%s\" "		// level name
-		"xv 0 yv 54 cstring2 \"%s\" "		// help 1
-		"xv 0 yv 110 cstring2 \"%s\" "		// help 2
-		"xv 50 yv 164 string2 \" kills     goals    secrets\" "
-		"xv 50 yv 172 string2 \"%3i/%3i     %i/%i       %i/%i\" ", 
+		"xv 0 yv 54 cstring2 \"F1. %s - %d pezos\nF2. %s - 400 pezos\" "		// help 1
+		"xv 0 yv 110 cstring2 \"F3. %s - 800 pezos\nF4. %s - 800 pezos\" "		// help 2
+		"xv 50 yv 164 string2 \" kills     pezos    secrets\" "
+		"xv 50 yv 172 string2 \"%3i/%3i     %i         %i/%i\" ", 
 		sk,
-		level.level_name,
-		game.helpmessage1,
-		game.helpmessage2,
+		"SHOP",
+		ent->client->weapon_name, ent->client->weapon_price,
+		"Health & Ammo Pack",
+		"Quad Damage",
+		"Invulnerability",
 		level.killed_monsters, level.total_monsters, 
-		level.found_goals, level.total_goals,
+		ent->client->pezos,
 		level.found_secrets, level.total_secrets);
 
 	gi.WriteByte (svc_layout);
 	gi.WriteString (string);
 	gi.unicast (ent, true);
+}
+
+void HelpMenuComputer(edict_t* ent)
+{
+	char	string[1024];
+	char* sk; 
+	char* health;
+	char* weapon;
+	char* power;
+	switch (ent->client->classnum) {
+		case 1:
+			sk = "Gunner";
+			health = "above average";
+			weapon = "Machine Gun";
+			power = "dash ahead of you";
+			break;
+		case 2:
+			sk = "Tanker"; 
+			health = "high";
+			weapon = "Chain Gun";
+			power = "max out your ammo";
+			break;
+		case 3:
+			sk = "Bomber"; 
+			health = "above average";
+			weapon = "Grenade Laucher";
+			power = "use BFG grenades"; 
+			break;
+		case 4:
+			sk = "Runner"; 
+			health = "low average";
+			weapon = "Shotgun";
+			power = "double jump";
+			break;
+		case 5:
+			sk = "Healer";
+			health = "below average";
+			weapon = "Shotgun";
+			power = "heal yourself";
+			break;
+	}
+
+
+	// send the layout
+	Com_sprintf(string, sizeof(string),
+		"xv 32 yv 8 picn help "			// background
+		"xv 202 yv 12 string2 \"%s\" "		// skill
+		"xv 0 yv 24 cstring2 \"%s\" "		// level name
+		"xv 0 yv 54 cstring2 \"You have a %s\nYou have %s health\" "		// help 1
+		"xv 0 yv 110 cstring2 \"Press C to %s\" "		// help 2
+		"xv 50 yv 164 string2 \" kills     pezos    secrets\" "
+		"xv 50 yv 172 string2 \"%3i/%3i     %i         %i/%i\" ",
+		sk,
+		"HELP",
+		weapon,
+		health,
+		power,
+		level.killed_monsters, level.total_monsters,
+		ent->client->pezos,
+		level.found_secrets, level.total_secrets);
+
+	gi.WriteByte(svc_layout);
+	gi.WriteString(string);
+	gi.unicast(ent, true);
 }
 
 
@@ -367,6 +433,29 @@ void Cmd_Help_f (edict_t *ent)
 	ent->client->showhelp = true;
 	ent->client->pers.helpchanged = 0;
 	HelpComputer (ent);
+}
+
+void Cmd_HelpMenu_f(edict_t* ent)
+{
+	// this is for backwards compatability
+	if (deathmatch->value)
+	{
+		Cmd_Score_f(ent);
+		return;
+	}
+
+	ent->client->showinventory = false;
+	ent->client->showscores = false;
+
+	if (ent->client->showhelp && (ent->client->pers.game_helpchanged == game.helpchanged))
+	{
+		ent->client->showhelp = false;
+		return;
+	}
+
+	ent->client->showhelp = true;
+	ent->client->pers.helpchanged = 0;
+	HelpMenuComputer(ent);
 }
 
 

@@ -18,9 +18,23 @@ C:\Users\dandar\Downloads\Git\GameModFinal2023\game\g_cmds.c(938,3): warning C49
 C:\Users\dandar\Downloads\Git\GameModFinal2023\game\g_cmds.c(926,3): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
 C:\Users\dandar\Downloads\Git\GameModFinal2023\game\g_cmds.c(934,4): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
 C:\Users\dandar\Downloads\Git\GameModFinal2023\game\g_cmds.c(956,11): warning C4101: 'start': unreferenced local variable
-C:\Users\dandar\Downloads\Git\GameModFinal2023\game\g_cmds.c(1190,26): warning C4553: '==': result of expression not used; did you intend '='?
-C:\Users\dandar\Downloads\Git\GameModFinal2023\game\g_cmds.c(1192,26): warning C4553: '==': result of expression not used; did you intend '='?
-C:\Users\dandar\Downloads\Git\GameModFinal2023\game\g_cmds.c(1303,3): warning C4013: 'Cmd_Spawn_Ent' undefined; assuming extern returning int
+C:\Users\dandar\Downloads\Git\GameModFinal2023\game\g_cmds.c(1189,2): warning C4013: 'Cmd_HelpMenu_f' undefined; assuming extern returning int
+C:\Users\dandar\Downloads\Git\GameModFinal2023\game\g_cmds.c(1283,3): warning C4013: 'Cmd_Spawn_Ent' undefined; assuming extern returning int
+  p_hud.c
+C:\Users\dandar\Downloads\Git\GameModFinal2023\game\g_local.h(33,1): warning C4005: 'GAMEVERSION': macro redefinition
+C:\Users\dandar\Downloads\Git\GameModFinal2023\game\g_local.h(30,1): message : see previous definition of 'GAMEVERSION'
+C:\Users\dandar\Downloads\Git\GameModFinal2023\game\p_hud.c(237,4): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\dandar\Downloads\Git\GameModFinal2023\game\p_hud.c(248,3): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  Generating Code...
+C:\Users\dandar\Downloads\Git\GameModFinal2023\game\p_hud.c(515): warning C4701: potentially uninitialized local variable 'cells' used
+C:\Users\dandar\Downloads\Git\GameModFinal2023\game\p_hud.c(385): warning C4701: potentially uninitialized local variable 'sk' used
+C:\Users\dandar\Downloads\Git\GameModFinal2023\game\p_hud.c(385): warning C4703: potentially uninitialized local pointer variable 'sk' used
+C:\Users\dandar\Downloads\Git\GameModFinal2023\game\p_hud.c(385): warning C4701: potentially uninitialized local variable 'health' used
+C:\Users\dandar\Downloads\Git\GameModFinal2023\game\p_hud.c(385): warning C4703: potentially uninitialized local pointer variable 'health' used
+C:\Users\dandar\Downloads\Git\GameModFinal2023\game\p_hud.c(385): warning C4701: potentially uninitialized local variable 'weapon' used
+C:\Users\dandar\Downloads\Git\GameModFinal2023\game\p_hud.c(385): warning C4703: potentially uninitialized local pointer variable 'weapon' used
+C:\Users\dandar\Downloads\Git\GameModFinal2023\game\p_hud.c(385): warning C4701: potentially uninitialized local variable 'power' used
+C:\Users\dandar\Downloads\Git\GameModFinal2023\game\p_hud.c(385): warning C4703: potentially uninitialized local pointer variable 'power' used
      Creating library .\..\release\gamex86.lib and object .\..\release\gamex86.exp
   game.vcxproj -> C:\Users\dandar\Downloads\Git\GameModFinal2023\game\release\gamex86.dll
           1 file(s) copied.
