@@ -368,7 +368,7 @@ void HelpMenuComputer(edict_t* ent)
 			break;
 		case 4:
 			sk = "Runner"; 
-			health = "low average";
+			health = "low";
 			weapon = "Shotgun";
 			power = "double jump";
 			break;

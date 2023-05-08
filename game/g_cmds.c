@@ -1051,6 +1051,7 @@ void Cmd_Gunner_Class(edict_t* ent) {
 	}
 	else {
 		if (ent->client->pezos >= ent->client->weapon_price) {
+			ent->client->pezos -= ent->client->weapon_price;
 			switch (ent->client->weapon_num) {
 				case 1:
 					Give_Weapon(ent, "super shotgun");
@@ -1076,9 +1077,7 @@ void Cmd_Gunner_Class(edict_t* ent) {
 					ent->client->weapon_num = 5;
 					ent->client->weapon_price = 0;
 					break;
-			
 			}
-			ent->client->pezos -= ent->client->weapon_price;
 		}
 	}
 }
