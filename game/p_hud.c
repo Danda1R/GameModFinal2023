@@ -387,7 +387,7 @@ void HelpMenuComputer(edict_t* ent)
 		"xv 202 yv 12 string2 \"%s\" "		// skill
 		"xv 0 yv 24 cstring2 \"%s\" "		// level name
 		"xv 0 yv 54 cstring2 \"You have a %s\nYou have %s health\" "		// help 1
-		"xv 0 yv 110 cstring2 \"Press C to %s\" "		// help 2
+		"xv 0 yv 110 cstring2 \"Press C to %s\nPress B to open Shop\" "		// help 2
 		"xv 50 yv 164 string2 \" kills     pezos    secrets\" "
 		"xv 50 yv 172 string2 \"%3i/%3i     %i         %i/%i\" ",
 		sk,

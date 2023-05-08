@@ -1625,7 +1625,7 @@ void ClientThink (edict_t *ent, usercmd_t *ucmd)
 	else
 		ent->client->ps.pmove.pm_flags &= ~PMF_NO_PREDICTION;
 	if (client->classchosen == 0) {
-		gi.centerprintf(ent, "Welcome to the Quake 2 Mercenaries Mod!\nFirst, choose a class with the F1-F5 keys.\nPress F1 for Gunner Class\nPress F2 for Tanker Class\nPress F3 for Bomber Class\nPress F4 for Runner Class\nPress F5 for Healer Class");
+		gi.centerprintf(ent, "Welcome to the Quake 2 Mercenaries Mod!\nFirst, choose a class with the F1-F5 keys.\nF1. Gunner\nF2. Tanker\nF3. Bomber\nF4. Runner\nF5. Healer\nPress H for Help");
 	}
 	if (level.time > ent->client->cooldown && ent->client->classchosen==1) {
 		ent->client->special = 0;

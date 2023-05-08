@@ -1,18 +1,21 @@
 ﻿C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(503,5): warning MSB8004: Output Directory does not end with a trailing slash.  This build instance will add the slash as it is required to allow proper evaluation of the Output Directory.
-  p_hud.c
+  p_client.c
 C:\Users\dandar\Downloads\Git\GameModFinal2023\game\g_local.h(33,1): warning C4005: 'GAMEVERSION': macro redefinition
 C:\Users\dandar\Downloads\Git\GameModFinal2023\game\g_local.h(30,1): message : see previous definition of 'GAMEVERSION'
-C:\Users\dandar\Downloads\Git\GameModFinal2023\game\p_hud.c(237,4): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-C:\Users\dandar\Downloads\Git\GameModFinal2023\game\p_hud.c(248,3): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-C:\Users\dandar\Downloads\Git\GameModFinal2023\game\p_hud.c(515): warning C4701: potentially uninitialized local variable 'cells' used
-C:\Users\dandar\Downloads\Git\GameModFinal2023\game\p_hud.c(385): warning C4701: potentially uninitialized local variable 'sk' used
-C:\Users\dandar\Downloads\Git\GameModFinal2023\game\p_hud.c(385): warning C4703: potentially uninitialized local pointer variable 'sk' used
-C:\Users\dandar\Downloads\Git\GameModFinal2023\game\p_hud.c(385): warning C4701: potentially uninitialized local variable 'health' used
-C:\Users\dandar\Downloads\Git\GameModFinal2023\game\p_hud.c(385): warning C4703: potentially uninitialized local pointer variable 'health' used
-C:\Users\dandar\Downloads\Git\GameModFinal2023\game\p_hud.c(385): warning C4701: potentially uninitialized local variable 'weapon' used
-C:\Users\dandar\Downloads\Git\GameModFinal2023\game\p_hud.c(385): warning C4703: potentially uninitialized local pointer variable 'weapon' used
-C:\Users\dandar\Downloads\Git\GameModFinal2023\game\p_hud.c(385): warning C4701: potentially uninitialized local variable 'power' used
-C:\Users\dandar\Downloads\Git\GameModFinal2023\game\p_hud.c(385): warning C4703: potentially uninitialized local pointer variable 'power' used
+C:\Users\dandar\Downloads\Git\GameModFinal2023\game\p_client.c(51,42): warning C4100: 'self': unreferenced formal parameter
+C:\Users\dandar\Downloads\Git\GameModFinal2023\game\p_client.c(160,66): warning C4100: 'damage': unreferenced formal parameter
+C:\Users\dandar\Downloads\Git\GameModFinal2023\game\p_client.c(160,56): warning C4100: 'kick': unreferenced formal parameter
+C:\Users\dandar\Downloads\Git\GameModFinal2023\game\p_client.c(160,43): warning C4100: 'other': unreferenced formal parameter
+C:\Users\dandar\Downloads\Git\GameModFinal2023\game\p_client.c(160,28): warning C4100: 'self': unreferenced formal parameter
+C:\Users\dandar\Downloads\Git\GameModFinal2023\game\p_client.c(192,46): warning C4100: 'inflictor': unreferenced formal parameter
+C:\Users\dandar\Downloads\Git\GameModFinal2023\game\p_client.c(482,91): warning C4100: 'point': unreferenced formal parameter
+C:\Users\dandar\Downloads\Git\GameModFinal2023\game\p_client.c(923,89): warning C4100: 'point': unreferenced formal parameter
+C:\Users\dandar\Downloads\Git\GameModFinal2023\game\p_client.c(923,60): warning C4100: 'attacker': unreferenced formal parameter
+C:\Users\dandar\Downloads\Git\GameModFinal2023\game\p_client.c(923,40): warning C4100: 'inflictor': unreferenced formal parameter
+C:\Users\dandar\Downloads\Git\GameModFinal2023\game\p_client.c(1398,3): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\dandar\Downloads\Git\GameModFinal2023\game\p_client.c(1403,2): warning C4996: 'strncpy': This function or variable may be unsafe. Consider using strncpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\dandar\Downloads\Git\GameModFinal2023\game\p_client.c(1443,2): warning C4996: 'strncpy': This function or variable may be unsafe. Consider using strncpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\dandar\Downloads\Git\GameModFinal2023\game\p_client.c(1640,3): warning C4013: 'Cmd_Spawn_Ent' undefined; assuming extern returning int
      Creating library .\..\release\gamex86.lib and object .\..\release\gamex86.exp
   game.vcxproj -> C:\Users\dandar\Downloads\Git\GameModFinal2023\game\release\gamex86.dll
           1 file(s) copied.
